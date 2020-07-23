@@ -9,15 +9,17 @@ const app = express();
 // Configurar Cors
 app.use(cors());
 
+// Parseo en json
+app.use( express.json() );
+
 // Base de datos
 dbConnection();
 
-app.get('/', (req, res)=> {
-    res.json({
-      ok: true,
-      msg: 'Hola Mundo!'
-    });
-  });
+// Rutas
+app.use( '/api/usuarios', require('./routes/usuarios') );
+app.use( '/api/login', require('./routes/auth') );
+
+
 
 
 app.listen( process.env.PORT, () => {
